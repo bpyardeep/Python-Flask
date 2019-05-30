@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!--
+      {{ form.autocomp.label(class="form-control-label") }}: {{ form.autocomp(class="form-control form-control-lg") }} -->
+      <div class="ui-widget">
+           <input id="vote" type="text" name="vote"/>
+        </div>
+        <script type="text/javascript">
+
+        $(function() {
+
+        var availableTags = [
+          "ActionScript",
+          "AppleScript",
+          "Asp",
+          "BASIC",
+          "C",
+          "C++",
+          "Clojure",
+          "COBOL",
+          "ColdFusion",
+          "Erlang",
+          "Fortran",
+          "Groovy",
+          "Haskell",
+          "Java",
+          "JavaScript",
+          "Lisp",
+          "Perl",
+          "PHP",
+          "Python",
+          "Ruby",
+          "Scala",
+          "Scheme"
+        ];
+          $("#vote").autocomplete({
+            minLength:3,
+            source: availableTags
+          });
+        });
+
+        </script>
+
+{% endblock content %}

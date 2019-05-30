@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if favs %}
+<h3>Movies You might Like</h3>
+    {% for movie in favs[0] %}
+    <article class="media content-section">
+        <img class='rounded-circle article-img' src="https://image.tmdb.org/t/p/w500/{{movie['poster_path']}}" alt="">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#">Rating {{ movie['vote_average'] }}</a>
+            <small class="text-muted">{{ movie[release_date] }}</small>
+          </div>
+          <h2><a class="article-title" href="{{url_for('moviesResult',type=1,movie_id=movie['id'])}}">{{ movie['original_title'] }}</a></h2>
+          <p class="article-content">{{ movie['overview'] }}</p>
+        </div>
+      </article>
+    {% endfor %}
+
+    {% for movie in favs[1] %}
+    <article class="media content-section">
+        <img class='rounded-circle article-img' src="https://image.tmdb.org/t/p/w500/{{movie['poster_path']}}" alt="">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#">Rating {{ movie['vote_average'] }}</a>
+            <small class="text-muted">{{ movie[release_date] }}</small>
+          </div>
+          <h2><a class="article-title" href="{{url_for('moviesResult',type=1,movie_id=movie['id'])}}">{{ movie['original_title'] }}</a></h2>
+          <p class="article-content">{{ movie['overview'] }}</p>
+        </div>
+      </article>
+    {% endfor %}
+
+
+{% else %}
+<h3>Oops Seems like There is no recommendations for your Favourites and ratings</h3>
+{%endif%}
+{% endblock content %}

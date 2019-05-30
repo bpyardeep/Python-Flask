@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+    
+
+
+{% if movie_1_rating %}
+
+                    <h4>Imdb: {{movie_1_rating['imdb_rating']}}</h4>
+                    <h4>Rotten Tomatoes: {{movie_1_rating['rotten_rating']}}</h4>
+                    <h4>Metacritic Rating: {{movie_1_rating['meta_crtic_rating']}}</h4>
+                    <h4>Metacritic User Rating: {{movie_1_rating['meta_user_rating']}}</h4>
+                    {%endif%}
+
+
+
+
+                    {% if movie_1_rating %} 
+                    <h4>Imdb: {{movie_2_rating['imdb_rating']}}</h4>
+                    <h4>Rotten Tomatoes: {{movie_2_rating['rotten_rating']}}</h4>
+                    <h4>Metacritic Rating: {{movie_2_rating['meta_crtic_rating']}}</h4>
+                    <h4>Metacritic User Rating: {{movie_2_rating['meta_user_rating']}}</h4>
+                     {%endif%}
+
+
+{% endblock content %}

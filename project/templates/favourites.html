@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Favourite Movies</h1>
+  {% if movies %}
+    {% for movie in movies %}
+    <article class="media content-section">
+            <img class='rounded-circle article-img' src="https://image.tmdb.org/t/p/w500/{{movie['poster_path']}}" alt="">
+            <div class="media-body">
+              <div class="article-metadata">
+                <a class="mr-2" href="#">Rating {{ movie.Popularity }}</a>
+                <small class="text-muted">{{ movie.release_date }}</small>
+              </div>
+              <h2><a class="article-title" href="{{url_for('moviesResult',type=1,movie_id=movie.movie_id)}}">{{ movie.movie_title }}</a></h2>
+              <p class="article-content">{{ movie.movie_overview }}</p>
+            </div>
+          </article>
+      
+    {% endfor%}
+
+    {% else %}
+    <p>Oops No Movie</p>
+    {%endif%}
+
+
+   
+    <h1>Favourite TV</h1>
+    {%if TVS%} 
+          {% for TV in TVS %}
+          <article class="media content-section">
+                  <img class='rounded-circle article-img' src="https://image.tmdb.org/t/p/w500/{{TV['poster_path']}}" alt="">
+                  <div class="media-body">
+                    <div class="article-metadata">
+                      <a class="mr-2" href="#">Rating {{ TV.Popularity }}</a>
+                      <small class="text-muted">{{ TV.release_date }}</small>
+                    </div>
+                    <h2><a class="article-title" href="{{url_for('moviesResult',type=2,movie_id=TV.TV_id)}}">{{ TV.TV_title }}</a></h2>
+                    <p class="article-content">{{ TV.TV_overview }}</p>
+                  </div>
+                </article>
+      
+{% endfor%}
+
+
+
+{% else %}
+<p>Oops No Shows</p>
+{%endif%}
+{% endblock content %}
+

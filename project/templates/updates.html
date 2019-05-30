@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+
+            <legend class="border-bottom mb-4">Get Updates</legend>
+            <div class="form-group">
+                {{ form.search_new.label(class="form-control-label") }}
+
+                {% if form.search_new.errors %}
+                    {{ form.search_new(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.search_new.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.search_new(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+
+
+
+
+            
+
+        </fieldset>
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+        </form>
+
+
+        {%if searched_news %}
+            {%for new in searched_news%}
+            <article class="media content-section">
+                    <img class='rounded-circle article-img' src={{new.urlToImage}} alt="">
+                    <div class="media-body">
+                     
+                      <div class="article-metadata">
+                        <a class="mr-2" href='#' >{{new.source['name']}}</a>
+                        <small class="text-muted">{{ new.publishedAt }}</small>
+                      
+                      </div>  
+                        <h2><a class="article-title" href="{{new.url}}">{{ new.title }}</a></h2>
+                      <p class="article-content">{{ new.content }}</p>
+                    </div>
+                  </article>
+            {%endfor%}
+        {%endif%}
+     
+
+           {% if news %}
+           {% for new in news %}
+
+           <article class="media content-section">
+              
+            <!-- <img class='rounded-circle article-img' src={{new.urlToImage}} alt=""> -->
+            <div class="media-body">
+             
+              <div class="article-metadata">
+                   
+                <a class="mr-2" href='#' >{{new.source['name']}}</a>
+                <small class="text-muted">{{ new.publishedAt }}</small>
+              
+              </div>  
+              <img src="{{new.urlToImage}}" class="img-fluid" alt="Responsive image">
+                <h2><a class="article-title" href="{{new.url}}">{{ new.title }}</a></h2>
+              <p class="article-content">{{ new.content }}</p>
+            </div> 
+          </article>
+
+
+                
+
+            {%endfor%}
+           {% endif %}
+
+
+
+
+
+
+{% endblock content %}

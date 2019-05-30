@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main1.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='StarRating.css') }}">
+
+
+
+
+
+
+    {% if title %}
+        <title>Flask Blog - {{ title }}</title>
+    {% else %}
+        <title>Flask Blog</title>
+    {% endif %}
+</head>
+<body>
+
+
+    <div class="jumbotron text-center" style="margin-bottom:0; background-image: url('C:/Users/Pyardeep Birdi/Documents/finalCollege/files_required/must-see-movies-2018.jpg');">
+        <h1>Welcome To MovieXamin</h1>
+        <p>Keeps you updated with all Movie Entertainment</p> 
+      </div>
+
+  <div class="container">
+
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="/">MovieXamin</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{{ url_for('home') }}"> <i class="fa fa-home"></i> Home</a>
+              
+              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-film"></i> Movies
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ url_for('movies') }}"> <i class="fa fa-search"></i> Search Movies</a>
+                  <a class="dropdown-item" href="{{ url_for('new_release') }}"> <i class="fa fa-ticket"></i> New Release</a>
+                  {% if current_user.is_authenticated %}
+                  <a class="dropdown-item" href="{{ url_for('favourites') }}"> <i class="fa fa-heart"></i> Favourites</a>
+                  <a class="dropdown-item" href="{{ url_for('recommending') }}">Movies You might Like</a>
+                  {% endif %}
+                  <a class="dropdown-item" href="{{ url_for('compare_movies') }}">Compare Movies</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{{ url_for('loadMovies') }}">Load Movies</a>
+                </div>
+              </li>
+              <!-- <a class="nav-item nav-link" href="{{ url_for('movies') }}">Movies</a>
+               -->
+              
+              
+              <!-- <a class="nav-item nav-link" href="{{ url_for('autocomplete') }}">testing</a> -->
+              <!-- <a class="nav-item nav-link" href="{{ url_for('loadMovies') }}">Load Movies</a>
+               -->
+              
+              
+              <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
+    
+
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if current_user.is_authenticated %}
+              <a class="nav-item nav-link" href="{{ url_for('new_post') }}"><i class="fa fa-plus-square"></i> New Post</a>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{current_user.username}}
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ url_for('account') }}"> <i class="fa fa-user-circle"></i> Account</a>
+                    <a class="dropdown-item" href="{{ url_for('logout') }}"> <i class="fa fa-sign-out"></i>  Logout</a>
+                    
+                  </div>
+                </li>
+
+
+
+<!-- 
+              <a class="nav-item nav-link" href="{{ url_for('account') }}">Profile</a>
+              <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a> -->
+
+
+
+              {% else %}
+                <a class="nav-item nav-link active" href="{{ url_for('login') }}">Login</a>
+                <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
+
+
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+
+</div>
+
+
+
+  <div class="container">
+
+
+
+
+
+
+<br>
+<br>
+
+
+    <main role="main" >
+      <div class="row">
+        <div class="col-md-10">
+          {% with messages = get_flashed_messages(with_categories=true)%}
+          {% if messages %}
+
+            {% for category,message in messages %}
+            <div class="alert alert-{{category}}">
+              {{message}}
+
+            </div>
+
+            {% endfor%}
+
+          {% endif %}
+          {% endwith %}
+          {% block content %}{% endblock %}
+        </div>
+        
+        
+        
+        
+        <!-- <div class="col-md-1">
+          <div class="content-section">
+
+            <p class='text-muted'>You can put any information here you'd like.
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">F</li>
+                <li class="list-group-item list-group-item-light">T</li>
+                <li class="list-group-item list-group-item-light">I</li>
+                <li class="list-group-item list-group-item-light">G</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+       -->
+      
+      
+      
+      </div>
+    </main>
+</div>
+
+
+      <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+ <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+ <script src="{{ url_for('static', filename='jquery.js') }}"></script>
+ <script src="{{ url_for('static', filename='StarRating.js') }}"></script>
+ <script src="{{ url_for('static', filename='movies_edit1.js') }}"></script>
+ <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"> </script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+
+</html>

@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<h2> <i class="fa fa-rss-square"></i> Feeds</h2>
+
+    {% for post in posts.items %}
+
+
+<style >
+    #content_home{
+      max-height:250px;
+      overflow:hidden;
+    }
+</style>
+
+
+
+        <article  class="media content-section">
+          <img class='rounded-circle article-img' src="{{url_for('static',filename='profile_pic/'+post.author.image_file)}}" alt="">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{url_for('user_post', username=post.author.username)}}">{{ post.author.username }}</a>
+              <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+            </div>
+            <h2><a class="article-title" href="{{url_for('post',post_id=post.id)}}">{{ post.title }}</a></h2>
+
+            <div id="content_home">
+            <p  class="article-content">{{ post.content }}</p>
+
+          </div>
+
+          <div class="article-metadata">
+          
+          <!-- <button class="btn btn-sm" style="background: white;" ><i class="fa fa-thumbs-up"></i></button> -->
+          <i onclick="myFunction(this)" class="fa fa-thumbs-up"></i>
+
+
+          <a class="mr-2" href="{{url_for('post',post_id=post.id)}}">
+
+              <button class="btn btn-sm" style="background: white;" ><i class="fa fa-comments"></i></button>
+
+
+          </a>
+
+        </div>
+            </div>
+        </article>
+
+
+
+
+
+
+    {% endfor %}
+
+        
+        {% for page_num in posts.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2) %}
+          {% if page_num %}
+          {% if posts.page == page_num %}
+            <a class="btn btn-info mb-4" href="{{url_for('home',page=page_num)}}">{{ page_num }}</a>
+          {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{url_for('home',page=page_num)}}">{{ page_num }}</a>
+          {% endif %}
+          {% else %}
+          .....
+          {% endif %}
+          
+       
+       
+          {% endfor %}
+          <script>
+              function myFunction(x) {
+                x.classList.toggle("fa-thumbs-down");
+              }
+              </script>
+
+{% endblock content %}

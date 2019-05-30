@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+
+
+
+<!-- <div class="card" style="width: 10rem;">
+  <img class="card-img-top" src="https://image.tmdb.org/t/p/w500/{{movies[0]['poster_path']}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{ movies[0]['original_title'] }}</h5>
+   
+  </div>
+</div>
+ -->
+
+
+<!-- <div class="card" style="width: 15rem;">
+  <img class="card-img-top" src="https://image.tmdb.org/t/p/w500/{{movies[0]['poster_path']}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{ movies[0]['original_title'] }}</h5>
+  </div>
+</div> -->
+
+<h3>Latest Movies</h3>
+{%for movie in movies%}
+
+
+
+
+
+
+
+
+
+    <article class="media content-section">
+      <img class='rounded-circle article-img' src="https://image.tmdb.org/t/p/w500/{{movie['poster_path']}}" alt="">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">Rating {{ movie['vote_average'] }}</a>
+          <small class="text-muted">{{ movie[release_date] }}</small>
+        </div>
+        <h2><a class="article-title" href="{{url_for('moviesResult',type=1,movie_id=movie['id'])}}">{{ movie['original_title'] }}</a></h2>
+        <p class="article-content">{{ movie['overview'] }}</p>
+      </div>
+    </article>
+{% endfor %}
+
+
+
+<h3>Latest TV</h3>
+{%for tv in tvs%}
+    <article class="media content-section">
+      <img class='rounded-circle article-img' src="https://image.tmdb.org/t/p/w500/{{tv['poster_path']}}" alt="">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">Rating {{ tv['vote_average'] }}</a>
+          <small class="text-muted">Aired on: {{ tv['first_air_date'] }}</small>
+        </div>
+        <h2><a class="article-title" href="{{url_for('moviesResult',type=2,movie_id=tv['id'])}}">{{ tv['original_name'] }}</a></h2>
+        <p class="article-content">{{ tv['overview'] }}</p>
+      </div>
+    </article>
+{% endfor %}
+
+{% endblock content %}

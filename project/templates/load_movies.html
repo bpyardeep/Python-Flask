@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+
+            <legend class="border-bottom mb-4">Load Movies Onto Database</legend>
+            <div class="form-group">
+                {{ form.search_movies.label(class="form-control-label") }}
+
+                {% if form.search_movies.errors %}
+                    {{ form.search_movies(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.search_movies.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.search_movies(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+
+
+
+
+              <div class="form-group">
+                {{form.select.label}}
+                {{form.select(class="form-control form-control-md")}}
+              </div>
+
+
+        </fieldset>
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+        </form>
+
+
+
+
+</div>
+
+{% if movies %}
+
+{%for movie in movies%}
+    <article class="media content-section">
+      <img class='rounded-circle article-img' src="https://image.tmdb.org/t/p/w500/{{movie['poster_path']}}" alt="">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">Rating {{ movie['vote_average'] }}</a>
+          <small class="text-muted">{{ movie[release_date] }}</small>
+        </div>
+        <h2><a class="article-title" href="#">{{ movie['original_title'] }}</a></h2>
+        <p class="article-content">{{ movie['overview'] }}</p>
+      </div>
+    </article>
+{% endfor %}
+
+
+
+
+{% elif tvs%}
+{%for tv in tvs%}
+    <article class="media content-section">
+      <img class='rounded-circle article-img' src="https://image.tmdb.org/t/p/w500/{{tv[2]}}" alt="">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">Rating {{ tv[5] }}</a>
+          <small class="text-muted">Aired on: {{ tv[4] }}</small>
+        </div>
+        <h2><a class="article-title" href="#">{{ tv[1] }}</a></h2>
+        <p class="article-content">{{ tv[3] }}</p>
+      </div>
+    </article>
+{% endfor %}
+
+
+
+{%elif actors%}
+
+{%for actor in actors%}
+    <article class="media content-section">
+      <img class='rounded-circle article-img' src="https://image.tmdb.org/t/p/w500/{{actor[6]}}" alt="">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">Popularity {{ actor[5] }}</a>
+
+          <small class="text-muted">birthday: {{ actor[4] }}</small>
+          <small>/</small>
+          <small class="text-muted">Place of Birth: {{ actor[3] }}</small>
+        </div>
+        <h2><a class="article-title" href="#">{{ actor[1] }}</a></h2>
+        <p class="article-content">{{ actor[2] }}</p>
+      </div>
+    </article>
+{% endfor %}
+
+{%endif%}
+
+{% endblock content %}
